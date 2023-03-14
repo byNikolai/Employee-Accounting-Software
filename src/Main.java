@@ -13,12 +13,30 @@ public class Main {
         EMPLOYEE[8] = new Employee("Pushkin Mikhail Nikolaevich", 40_500, 2);
         EMPLOYEE[9] = new Employee("Danshenko Anna Aleksandrovna", 72_000, 4);
 
+        System.out.println("**BASIC LEVEL**");
+        System.out.println("");
         printInfo();
         System.out.println("Total salary cost: " + sum());
         System.out.println("Average salary: " + averageWage());
         System.out.println("Employee with lowest salary : " + minWage());
         System.out.println("Employee with highest salary : " + maxWage());
         printFullName();
+        System.out.println("");
+        System.out.println("**MIDDLE LEVEL**");
+        System.out.println("");
+        int percent = 10;
+        indexation(percent);
+        System.out.println("Salary after indexation :");
+        printInfo();
+        int department = 3;
+        System.out.println("Employee with lowest salary by department : " + minWageByDepartment(department));
+        System.out.println("Employee with highest salary by department : " + maxWageByDepartment(department));
+        System.out.println("Total salary cost by department: " + sumByDepartment(department));
+        System.out.println("Average salary by department: " + averageByDepartment(department));
+        int newPercent = 5;
+        indexationByDepartment(newPercent, 5);
+        System.out.println("Salary after indexation :");
+        printInfoByDepartment(5);
 
     }
 
@@ -71,4 +89,77 @@ public class Main {
         }
     }
 
+    private static void indexation(int indexationPercent) {
+        double c = 1 + 1D / indexationPercent;
+        for (Employee employee : EMPLOYEE) {
+            employee.setSalary((int) (employee.getSalary() * c));
+        }
+    }
+
+    private static String minWageByDepartment(int department) {
+        Employee employee = null;
+        int minWage = Integer.MAX_VALUE;
+        for (Employee employee1 : EMPLOYEE) {
+            if (employee1.getEmployeeDepartment() == department && employee1.getSalary() < minWage) {
+                minWage = employee1.getSalary();
+                employee = employee1;
+            }
+        }
+        return employee.getFullName() + "; Salary: " + employee.getSalary();
+
+    }
+
+    private static String maxWageByDepartment(int department) {
+        Employee employee = null;
+        int maxWage = Integer.MIN_VALUE;
+        for (Employee employee1 : EMPLOYEE) {
+            if (employee1.getEmployeeDepartment() == department && employee1.getSalary() > maxWage) {
+                maxWage = employee1.getSalary();
+                employee = employee1;
+            }
+        }
+        return employee.getFullName() + "; Salary: " + employee.getSalary();
+    }
+
+    private static String sumByDepartment(int department) {
+        int sum = 0;
+        for (Employee employee : EMPLOYEE) {
+            if (employee.getEmployeeDepartment() == department) {
+                sum += employee.getSalary();
+            }
+        }
+        return "Department " + department + " total salary: " + sum;
+    }
+
+    private static double averageByDepartment(int department) {
+        int sum = 0;
+        int c = 0;
+        for (Employee employee : EMPLOYEE) {
+            if (employee.getEmployeeDepartment() == department) {
+                sum += employee.getSalary();
+                c++;
+            }
+            if (c != 0) {
+
+                return (double) sum / c;
+            }
+        }
+        return  0;
+    }
+    private static void indexationByDepartment(int indexationPercent, int department) {
+        double c = 1 + 1D / indexationPercent;
+        for (Employee employee : EMPLOYEE) {
+            if (employee.getEmployeeDepartment() == department) {
+                employee.setSalary((int) (employee.getSalary() * c));
+            }
+        }
+    }
+    private static void printInfoByDepartment( int department) {
+        for (Employee employee : EMPLOYEE) {
+            if (employee.getEmployeeDepartment() == department) {
+                System.out.println(employee.toStringByDepartment());
+            }
+        }
+    }
 }
+
