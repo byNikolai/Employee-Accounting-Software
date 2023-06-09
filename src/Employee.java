@@ -3,7 +3,7 @@ public class Employee {
     private int salary;
     private int employeeDepartment;
     private int id;
-    private static int idCounter;
+    private static int idCounter = 1;
 
     public Employee(String fullName, int salary, int employeeDepartment) {
         this.fullName = fullName;
@@ -40,4 +40,8 @@ public class Employee {
     public String toString() {
         return "id: " + id + " Employee: " + fullName + ";" + " Department: " + employeeDepartment + ";" + " Salary: " + salary + ";";
     }
+    public String toStringByDepartment() {
+        return "id: " + id + " Employee: " + fullName + ";" + " Salary: " + salary + ";";
+    }
+
 }
